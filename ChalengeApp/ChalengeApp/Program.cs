@@ -39,8 +39,8 @@ foreach (var employee in employees)
     }
         
 }
-Console.WriteLine("Najwyższą iczbę ocen ma: " + employeeWithMaxResult.Name);
-Console.WriteLine("Imie:                    " + employeeWithMaxResult.Name);
-Console.WriteLine("Nazwisko:                " + employeeWithMaxResult.Surname);
-Console.WriteLine("Wiek:                    " + employeeWithMaxResult.Age);
-Console.WriteLine("Suma punktów:            " + employeeWithMaxResult.Result);
+Console.WriteLine("Najwyższą liczbę ocen ma: " + employeeWithMaxResult.Name);
+Console.WriteLine("Imie:                     " + employeeWithMaxResult.Name);
+Console.WriteLine("Nazwisko:                 " + employeeWithMaxResult.Surname);
+Console.WriteLine("Wiek:                     " + employeeWithMaxResult.Age);
+Console.WriteLine("Suma punktów:             " + employeeWithMaxResult.Result);

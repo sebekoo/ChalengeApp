@@ -28,5 +28,4 @@
             this.score.Add(number);
         }
     }
-
 }
