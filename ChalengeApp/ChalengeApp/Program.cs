@@ -1,69 +1,46 @@
-﻿int number = 4566;
-string numberInString = number.ToString();
-char[] letters = numberInString.ToArray();
+﻿using ChalengeApp;
 
-int counter0 = 0;
-int counter1 = 0;
-int counter2 = 0;
-int counter3 = 0;
-int counter4 = 0;
-int counter5 = 0;
-int counter6 = 0;
-int counter7 = 0;
-int counter8 = 0;
-int counter9 = 0;
+Employee employee1 = new Employee("Adam", "Nowak", 34);
+Employee employee2 = new Employee("Monika", "Kowalska", 45);
+Employee employee3 = new Employee("Zuzia", "Adamczewska", 63);
 
-foreach (char letter in letters)
+employee1.AddScore(5);
+employee1.AddScore(2);
+employee1.AddScore(1);
+employee2.AddScore(6);
+employee2.AddScore(9);
+
+employee2.AddScore(2);
+employee2.AddScore(5);
+employee2.AddScore(9);
+employee2.AddScore(3);
+employee2.AddScore(4);
+
+employee3.AddScore(11);
+employee3.AddScore(1);
+employee3.AddScore(1);
+employee3.AddScore(8);
+employee3.AddScore(2);
+
+List<Employee> employees = new List<Employee>()
 {
-    if (letter == '0')
+    employee1, employee2, employee3
+};
+
+int maxResult = -1;
+Employee employeeWithMaxResult = null;
+
+foreach (var employee in employees)
+{
+    if (employee.Result > maxResult)
     {
-        counter0++;
+        maxResult = employee.Result;
+        employeeWithMaxResult = employee;
     }
-    else if (letter == '1')
-    {
-        counter1++;
-    }
-    else if (letter == '2')
-    {
-        counter2++;
-    }
-    else if (letter == '3')
-    {
-        counter3++;
-    }
-    else if (letter == '4')
-    {
-        counter4++;
-    }
-    else if (letter == '5')
-    {
-        counter5++;
-    }
-    else if (letter == '6')
-    {
-        counter6++;
-    }
-    else if (letter == '7')
-    {
-        counter7++;
-    }
-    else if (letter == '8')
-    {
-        counter8++;
-    }
-    else if (letter == '9')
-    {
-        counter9++;
-    }
+        
 }
-Console.WriteLine("Wynik dla liczby " + number);
-Console.WriteLine("liczba 0 występuje " + counter0 + " razy");
-Console.WriteLine("liczba 1 występuje " + counter1 + " razy");
-Console.WriteLine("liczba 2 wystepuje " + counter2 + " razy");
-Console.WriteLine("liczba 3 występuje " + counter3 + " razy");
-Console.WriteLine("liczba 4 wystepuje " + counter4 + " razy");
-Console.WriteLine("liczba 5 występuje " + counter5 + " razy");
-Console.WriteLine("liczba 6 występuje " + counter6 + " razy");
-Console.WriteLine("liczba 7 występuje " + counter7 + " razy");
-Console.WriteLine("liczba 8 występuje " + counter8 + " razy");
-Console.WriteLine("liczba 9 występuje " + counter9 + " razy");
+Console.WriteLine("Najwyższą iczbę ocen ma: " + employeeWithMaxResult.Name);
+Console.WriteLine("Imie:                    " + employeeWithMaxResult.Name);
+Console.WriteLine("Nazwisko:                " + employeeWithMaxResult.Surname);
+Console.WriteLine("Wiek:                    " + employeeWithMaxResult.Age);
+Console.WriteLine("Suma punktów:            " + employeeWithMaxResult.Result);
