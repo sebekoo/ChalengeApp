@@ -1,14 +1,12 @@
-using System.Reflection.Metadata;
-
-namespace ChalengeApp.Test
+namespace ChalengeApp.Tests
 {
-    public class Tests
+    public class UserTests
     {
         [Test]
-        public void WhenUserCollectTwoScore_ShouldReturnSumOfResult()
+        public void WhenUserCollectTwoScore_ShouldCorrectResult()
         {
             // arrange - przygotowanie
-            var user = new User("Adam", "sgfdsg");
+            var user = new User("Adam");
             user.AddScore(4);
             user.AddScore(4);
             user.AddScore(-1); //punkty karne
