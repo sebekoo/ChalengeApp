@@ -1,6 +1,7 @@
 ﻿namespace ChalengeApp
 {
     public class Employee
+
     {
         private List<float> grades = new List<float>();
 
@@ -25,7 +26,11 @@
             if (grade >= -50 && grade <= 100)  // walidacja - zabezpieczenie przed wpisaniem niepoprawnych danych 
             {
                 this.grades.Add(grade);
-                Console.WriteLine($"Dodaliśmy wartość {grade}");
+                Console.WriteLine($"Dodaliśmy wartość {grade} - ");
+            }
+            else if (grade <= -50)
+            {
+                Console.WriteLine("Inwalid grade value is < -50");
             }
             else
             {
@@ -69,9 +74,6 @@
             }
         }
 
-
-
-
         // jak przerobić 'string' na 'float'
         //public void AddGrade(string grade)
         //{
@@ -91,13 +93,87 @@
                 statistics.Max = Math.Max(statistics.Max, grade);
                 statistics.Min = Math.Min(statistics.Min, grade);
                 statistics.Average += grade;
-                // lub statistics.Average = statistics.Average + grade
+                //lub statistics.Average = statistics.Average + grade
             }
 
-            statistics.Average = statistics.Average / this.grades.Count; // dzielenie przez sumę elementów
-            // statistics.Average /= this.grades.Count; // skrócony zapis tego co powyżej
+            statistics.Average /= this.grades.Count; // skrócony zapis tego co poniżej
+            //statistics.Average = statistics.Average / this.grades.Count; // dzielenie przez sumę elementów
 
             return statistics;
         }
+        public Statistics GetStatisticsWithForEach()
+        {
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
+
+            foreach (var grade in this.grades)
+            {
+                statistics.Max = Math.Max(statistics.Max, grade);
+                statistics.Min = Math.Min(statistics.Min, grade);
+                statistics.Average += grade;
+            }
+
+            statistics.Average /= this.grades.Count;
+            return statistics;
+        }
+        public Statistics GetStatisticsWithFor()
+        {
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
+
+            for (int i = 0; i < this.grades.Count; i++)
+            {
+                statistics.Max = Math.Max(statistics.Max, grades[i]);
+                statistics.Min = Math.Min(statistics.Min, grades[i]);
+                statistics.Average += grades[i];
+            }
+
+            statistics.Average /= this.grades.Count;
+            return statistics;
+        }
+        public Statistics GetStatisticsWithDoWhile() 
+        {
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
+
+            var i = 0;
+
+            do // petla 'do while' - zawsze wykona sie jeden raz, 'do while' - to jest to samo co 'foreach'
+            {
+                statistics.Max = Math.Max(statistics.Max, this.grades[i]);
+                statistics.Min = Math.Min(statistics.Min, this.grades[i]);
+                statistics.Average += this.grades[i];
+                i++;
+            } while (i < this.grades.Count);
+
+            statistics.Average /= this.grades.Count;
+            return statistics;
+        }
+        public Statistics GetStatisticsWithWhile()
+        {
+            var statistics = new Statistics();
+            statistics.Average = 0;
+            statistics.Max = float.MinValue;
+            statistics.Min = float.MaxValue;
+
+            var i = 0;
+            
+            while (i < this.grades.Count) // petla while - może nie wykonać sie ani razu
+            {
+                statistics.Max = Math.Max(statistics.Max, this.grades[i]);
+                statistics.Min = Math.Min(statistics.Min, this.grades[i]);
+                statistics.Average += this.grades[i];
+                i++;
+            }
+
+            statistics.Average /= this.grades.Count;
+            return statistics;
+        } 
     }
 }

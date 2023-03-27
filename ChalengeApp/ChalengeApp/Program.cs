@@ -3,15 +3,45 @@
 var employee = new Employee("Adam", "Kamizelich"); // tworzymy obiekt 'employee'
 employee.AddGrade("Adam"); // string //odwołanie do metody w Employee > Ctrl + klik
 employee.AddGrade(2.3);    // double //wykonujemy operacje na obiekcie 'employee'
-employee.AddGrade(2f);     // float
-employee.AddGrade(-35);    // short
-employee.AddGrade(6);      // byte
-employee.AddGrade(255);    // byte
-var statistics = employee.GetStatistics(); //'GetStatistics' pobiera statystyki do obiektu 'statistics'
+employee.AddGrade(7f);     // float
+employee.AddGrade(-85);    // short
+employee.AddGrade(85);     // byte
+employee.AddGrade(1.7);    // byte
+employee.AddGrade(9);
+employee.AddGrade(2);
+employee.AddGrade(11);
 
+var statistics = employee.GetStatistics(); //'GetStatistics' pobiera statystyki do obiektu 'statistics'
+var statistics1 = employee.GetStatisticsWithForEach();
+var statistics2 = employee.GetStatisticsWithFor();
+var statistics3 = employee.GetStatisticsWithDoWhile();
+var statistics4 = employee.GetStatisticsWithWhile();
+Console.WriteLine();
+Console.WriteLine("---Pętla ForEach---");
 Console.WriteLine($"Average: {statistics.Average:N2}");  // interpolacja - $ przed cudzysłowiem, w cudzysłowiu kod, N2 - dwa miejsca po przeinku
 Console.WriteLine($"Min: {statistics.Min}");
 Console.WriteLine($"Max: {statistics.Max}");
+Console.WriteLine();
+Console.WriteLine("---Pętla ForEach---");
+Console.WriteLine($"Average: {statistics1.Average:N2}");
+Console.WriteLine($"Min: {statistics1.Min}");
+Console.WriteLine($"Max: {statistics1.Max}");
+Console.WriteLine();
+Console.WriteLine("--- Pętla For---");
+Console.WriteLine($"Average: {statistics2.Average:N2}");
+Console.WriteLine($"Min: {statistics2.Min}");
+Console.WriteLine($"Max: {statistics2.Max}");
+Console.WriteLine();
+Console.WriteLine("---Pętla DoWhile---");
+Console.WriteLine($"Average: {statistics3.Average:N2}");
+Console.WriteLine($"Min: {statistics3.Min}");
+Console.WriteLine($"Max: {statistics3.Max}");
+Console.WriteLine();
+Console.WriteLine("---Pętla While---");
+Console.WriteLine($"Average: {statistics4.Average:N2}");
+Console.WriteLine($"Min: {statistics4.Min}");
+Console.WriteLine($"Max: {statistics4.Max}");
+
 //Console.WriteLine("Average: " + statistics.Max); //ten lub powyżej to to samo
 
 //SetSth(ref statistics); //wywołanie metody
