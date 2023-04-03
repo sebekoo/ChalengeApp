@@ -13,25 +13,39 @@
             this.Name = name;
             this.Surname = surname;
         }
-
+        
         public string Name { get; private set; } //pola 
 
         public string Surname { get; private set; }
+
+        public void AddGrade(string grade)
+        {
+            if (float.TryParse(grade, out float inputFloat)) //char.TryParse(input, out grade);
+            {
+                this.AddGrade(inputFloat);
+            }
+            else
+            {
+                Console.WriteLine("String is not float");
+                char.TryParse(grade, out char inputChar);
+                this.AddGrade(inputChar);
+            }
+        }
 
         public void AddGrade(float grade) // metoda
         {
             if (grade > 0 && grade <= 100)  // walidacja - zabezpieczenie przed wpisaniem niepoprawnych danych 
             {
                 this.grades.Add(grade);
-                Console.WriteLine($"Dodana ocena - {grade}");
+                Console.WriteLine($"Dodana ocena \"float\"- {grade}");
             }
             else if (grade <= 0)
             {
-                Console.WriteLine("Inwalid grade value is <= 0");
+                Console.WriteLine("Podana wartość nie moze być mniejsza od \"0\". Podaj wartość od 0 - 100");
             }
             else
             {
-                Console.WriteLine("Inwalid grade value is > 100");
+                Console.WriteLine("Podana wartość przekracza zakres ocen. Podaj wartość od 0 - 100");
             }
         }
 
@@ -54,47 +68,34 @@
                 case 'A':
                 case 'a':
                     this.grades.Add(100);
-                    Console.WriteLine($"Dodana ocena - {grade}");
+                    Console.WriteLine($"Dodana ocena \"char\" - {grade}");
                     break;
                 case 'B':
                 case 'b':
                     this.grades.Add(80);
-                    Console.WriteLine($"Dodana ocena - {grade}");
+                    Console.WriteLine($"Dodana ocena \"char\" - {grade}");
                     break;
                 case 'C':
                 case 'c':
                     this.grades.Add(60);
-                    Console.WriteLine($"Dodana ocena - {grade}");
+                    Console.WriteLine($"Dodana ocena \"char\" - {grade}");
                     break;
                 case 'D':
                 case 'd':
                     this.grades.Add(40);
-                    Console.WriteLine($"Dodana ocena - {grade}"); 
+                    Console.WriteLine($"Dodana ocena \"char\" - {grade}");
                     break;
                 case 'E':
                 case 'e':
                     this.grades.Add(20);
-                    Console.WriteLine($"Dodana ocena - {grade}"); 
+                    Console.WriteLine($"Dodana ocena \"char\" - {grade}");
                     break;
                 default:
-                    Console.WriteLine($"Wybrana litera {grade} jest spoza zakresu");
-                    Console.WriteLine("Zakres wprowadzanych liter to: A - E");
+                    Console.WriteLine($"Dodana ocena - \"{grade}\" jest spoza zakresu");
+                    Console.WriteLine("Przypominam - zakres wprowadzanych ocen to: A - E, wybranie litery \"q\" zakończy wprowadzanie ocen");
                     break;
             }
         }
-
-        public void AddGrade(string grade)
-        {
-            if (float.TryParse(grade, out float result))
-            {
-                this.AddGrade(result);
-            }
-            else
-            {
-                Console.WriteLine("String is not float");
-            }
-        }
-
         public Statistics GetStatistics() //metoda która zwróci wypełniony obiekt ze statystykami
         {
             var statistics = new Statistics();
