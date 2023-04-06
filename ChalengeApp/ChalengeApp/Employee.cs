@@ -2,6 +2,9 @@
 {
     public class Employee
     {
+        private readonly char sex = 'M'; // tylko tutaj podczas definiowania i w konstruktorze mozna przypiać do 'readonly' wartość - patrz linia 17 i 28
+        private const char sex1 = 'M'; // 'const' tylko raz można przypisać i zmienic w dowolnym miejscu w kodzie
+
         private List<float> grades = new List<float>();
 
         public Employee() // konstruktor
@@ -12,43 +15,69 @@
         {
             this.Name = name;
             this.Surname = surname;
+            this.sex = 'K';
         }
-        
+
         public string Name { get; private set; } //pola 
 
         public string Surname { get; private set; }
 
+        public void AddGrade(float grade) // metoda
+        {
+            if (grade >= 0 && grade <= 100)  // walidacja - zabezpieczenie przed wpisaniem niepoprawnych danych 
+            {
+                //this.sex = 's'; - tu nie moża przypisać wartośći do 'readonly'
+                this.grades.Add(grade);
+            }
+            else if (grade < 0)
+            {
+                throw new Exception("Podana wartość nie moze być mniejsza od \"0\". Podaj wartość od 0 - 100");
+            }
+            else
+            {
+                throw new Exception("Podana wartość przekracza zakres ocen. Podaj wartość od 0 - 100 lub literowo A-E");
+            }
+        }
+
         public void AddGrade(string grade)
         {
-            if (float.TryParse(grade, out float inputFloat)) //char.TryParse(input, out grade);
+            if (float.TryParse(grade, out float inputFloat))
             {
                 this.AddGrade(inputFloat);
             }
+            else if (char.TryParse(grade, out char inputChar))
+            {
+                switch (inputChar)
+                {
+                    case 'A':
+                    case 'a':
+                        this.grades.Add(100);
+                        break;
+                    case 'B':
+                    case 'b':
+                        this.grades.Add(80);
+                        break;
+                    case 'C':
+                    case 'c':
+                        this.grades.Add(60);
+                        break;
+                    case 'D':
+                    case 'd':
+                        this.grades.Add(40);
+                        break;
+                    case 'E':
+                    case 'e':
+                        this.grades.Add(20);
+                        break;
+                    default:
+                        throw new Exception($"Dodana ocena - \"{grade}\" jest spoza zakresu \n\nPrzypominam - zakres wprowadzanych ocen to: A - E lub 0 - 100, wybranie litery \"q\" zakończy wprowadzanie ocen\n");
+                }
+            }
             else
             {
-                Console.WriteLine("String is not float");
-                char.TryParse(grade, out char inputChar);
-                this.AddGrade(inputChar);
+                throw new Exception("String is not float");
             }
         }
-
-        public void AddGrade(float grade) // metoda
-        {
-            if (grade > 0 && grade <= 100)  // walidacja - zabezpieczenie przed wpisaniem niepoprawnych danych 
-            {
-                this.grades.Add(grade);
-                Console.WriteLine($"Dodana ocena \"float\"- {grade}");
-            }
-            else if (grade <= 0)
-            {
-                Console.WriteLine("Podana wartość nie moze być mniejsza od \"0\". Podaj wartość od 0 - 100");
-            }
-            else
-            {
-                Console.WriteLine("Podana wartość przekracza zakres ocen. Podaj wartość od 0 - 100");
-            }
-        }
-
         //public void AddGrade(double grade)
         //{
         //    float gradeAsFloat = (float)grade;
@@ -68,32 +97,25 @@
                 case 'A':
                 case 'a':
                     this.grades.Add(100);
-                    Console.WriteLine($"Dodana ocena \"char\" - {grade}");
                     break;
                 case 'B':
                 case 'b':
                     this.grades.Add(80);
-                    Console.WriteLine($"Dodana ocena \"char\" - {grade}");
                     break;
                 case 'C':
                 case 'c':
                     this.grades.Add(60);
-                    Console.WriteLine($"Dodana ocena \"char\" - {grade}");
                     break;
                 case 'D':
                 case 'd':
                     this.grades.Add(40);
-                    Console.WriteLine($"Dodana ocena \"char\" - {grade}");
                     break;
                 case 'E':
                 case 'e':
                     this.grades.Add(20);
-                    Console.WriteLine($"Dodana ocena \"char\" - {grade}");
                     break;
                 default:
-                    Console.WriteLine($"Dodana ocena - \"{grade}\" jest spoza zakresu");
-                    Console.WriteLine("Przypominam - zakres wprowadzanych ocen to: A - E, wybranie litery \"q\" zakończy wprowadzanie ocen");
-                    break;
+                    throw new Exception($"Dodana ocena - \"{grade}\" jest spoza zakresu \n\nPrzypominam - zakres wprowadzanych ocen to: A - E, wybranie litery \"q\" zakończy wprowadzanie ocen\n");
             }
         }
         public Statistics GetStatistics() //metoda która zwróci wypełniony obiekt ze statystykami
@@ -133,7 +155,6 @@
                     statistics.AverageLetter = 'E';
                     break;
             }
-
             return statistics;
         }
     }
