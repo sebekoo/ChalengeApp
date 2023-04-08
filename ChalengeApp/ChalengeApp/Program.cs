@@ -8,7 +8,7 @@ Console.WriteLine("Aby zakończyć wprowadzanie ocen, naciśnij \"q\"");
 Console.WriteLine("Wielkość liter nie ma znaczenia");
 Console.WriteLine();
 
-var employee = new Employee();
+var employee = new Employee("Adam", "Nowak", 'k', 20, "Konsultant");
 
 while (true)
 {

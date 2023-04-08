@@ -1,32 +1,38 @@
 ﻿namespace ChalengeApp
 {
-    public class Employee
+    public class Employee : Person
     {
-        private readonly char sex = 'M'; // tylko tutaj podczas definiowania i w konstruktorze mozna przypiać do 'readonly' wartość - patrz linia 17 i 28
-        private const char sex1 = 'M'; // 'const' tylko raz można przypisać i zmienic w dowolnym miejscu w kodzie
-
         private List<float> grades = new List<float>();
 
-        public Employee() // konstruktor
-        {
+        public Employee(string name)
+            : this(name, "no surname")
+        { }
 
+        public Employee(string name, string surname)
+            : this(name, surname, "no position")
+        { }
+
+        public Employee(string name, string surname, string position)
+            : base(name, surname)
+        {
+            this.Position = position;
         }
-        public Employee(string name, string surname) // konstruktor
+
+        public Employee(string name, string surname, char sex, int age, string position)
+            : base(name, surname, position)
         {
-            this.Name = name;
-            this.Surname = surname;
-            this.sex = 'K';
+            this.Sex = sex;
+            this.Age = age;
         }
 
-        public string Name { get; private set; } //pola 
+        public char Sex { get; private set; }
+        public int Age { get; private set; }
+        public string Position { get; private set; }
 
-        public string Surname { get; private set; }
-
-        public void AddGrade(float grade) // metoda
+        public void AddGrade(float grade)
         {
-            if (grade >= 0 && grade <= 100)  // walidacja - zabezpieczenie przed wpisaniem niepoprawnych danych 
+            if (grade >= 0 && grade <= 100)
             {
-                //this.sex = 's'; - tu nie moża przypisać wartośći do 'readonly'
                 this.grades.Add(grade);
             }
             else if (grade < 0)
@@ -137,24 +143,34 @@
 
             statistics.Average /= this.grades.Count;
 
-            switch (statistics.Average)
+            statistics.AverageLetter = statistics.Average
+                switch
             {
-                case var average when average >= 80:
-                    statistics.AverageLetter = 'A';
-                    break;
-                case var average when average >= 60:
-                    statistics.AverageLetter = 'B';
-                    break;
-                case var average when average >= 40:
-                    statistics.AverageLetter = 'C';
-                    break;
-                case var average when average >= 20:
-                    statistics.AverageLetter = 'D';
-                    break;
-                default:
-                    statistics.AverageLetter = 'E';
-                    break;
-            }
+                var average when average >= 80 => 'A',
+                var average when average >= 60 => 'B',
+                var average when average >= 40 => 'C',
+                var average when average >= 20 => 'D',
+                _ => 'E',
+            };
+
+            //switch (statistics.Average)
+            //{
+            //    case var average when average >= 80:
+            //        statistics.AverageLetter = 'A';
+            //        break;
+            //    case var average when average >= 60:
+            //        statistics.AverageLetter = 'B';
+            //        break;
+            //    case var average when average >= 40:
+            //        statistics.AverageLetter = 'C';
+            //        break;
+            //    case var average when average >= 20:
+            //        statistics.AverageLetter = 'D';
+            //        break;
+            //    default:
+            //        statistics.AverageLetter = 'E';
+            //        break;
+            //}
             return statistics;
         }
     }
