@@ -6,7 +6,7 @@ namespace ChalengeApp.Tests
         public void WhenUserCollectTwoScore_ShouldCorrectResult()
         {
             // arrange - przygotowanie
-            var user = new User("Adam");
+            var user = new User("Adam","fgfjgfj");
             user.AddScore(4);
             user.AddScore(4);
             user.AddScore(-1); //punkty karne

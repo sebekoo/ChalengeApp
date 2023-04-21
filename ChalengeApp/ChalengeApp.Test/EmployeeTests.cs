@@ -7,10 +7,10 @@
         public void WhenGetStatisticsCalled_ShouldReturnCorrectMax()
         {
             // arrange
-            var employee = new Employee();
+            var employee = new Employee("Adam", "Kamizelich");
             employee.AddGrade('D');
             employee.AddGrade("C");
-            employee.AddGrade(140);
+            employee.AddGrade(10);
 
             // act
             var statistics = employee.GetStatistics();

@@ -52,7 +52,7 @@
         // metoda
         private User GetUser(string name) //przy wywołaniu metody 'GetUser' otrzymamy imie 'Adam'
         {
-            return new User("Adam");
+            return new User("Adam", "hjkhghjgh");
         }
     }
 }

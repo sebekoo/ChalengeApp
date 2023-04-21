@@ -1,33 +1,18 @@
 ﻿namespace ChalengeApp
 {
-    public class Employee : Person
+    public class Employee : IEmployee
     {
         private List<float> grades = new List<float>();
 
-        public Employee(string name)
-            : this(name, "no surname")
-        { }
-
         public Employee(string name, string surname)
-            : this(name, surname, "no position")
-        { }
-
-        public Employee(string name, string surname, string position)
-            : base(name, surname)
         {
-            this.Position = position;
+            this.Name = name;
+            this.Surname = surname;
         }
 
-        public Employee(string name, string surname, char sex, int age, string position)
-            : base(name, surname, position)
-        {
-            this.Sex = sex;
-            this.Age = age;
-        }
+        public string Name { get; private set; }
 
-        public char Sex { get; private set; }
-        public int Age { get; private set; }
-        public string Position { get; private set; }
+        public string Surname { get; private set; }
 
         public void AddGrade(float grade)
         {
@@ -44,7 +29,6 @@
                 throw new Exception("Podana wartość przekracza zakres ocen. Podaj wartość od 0 - 100 lub literowo A-E");
             }
         }
-
         public void AddGrade(string grade)
         {
             if (float.TryParse(grade, out float inputFloat))
@@ -76,7 +60,7 @@
                         this.grades.Add(20);
                         break;
                     default:
-                        throw new Exception($"Dodana ocena - \"{grade}\" jest spoza zakresu \n\nPrzypominam - zakres wprowadzanych ocen to: A - E lub 0 - 100, wybranie litery \"q\" zakończy wprowadzanie ocen\n");
+                        throw new Exception($"Dodana ocena - \"{grade}\" jest spoza zakresu \n\nPrzypominam - zakres wprowadzanych ocen to: A - E lub 0 - 100, \n\nWybranie litery \"q\" zakończy wprowadzanie ocen\n");
                 }
             }
             else
@@ -84,18 +68,16 @@
                 throw new Exception("String is not float");
             }
         }
-        //public void AddGrade(double grade)
-        //{
-        //    float gradeAsFloat = (float)grade;
-        //    this.AddGrade(gradeAsFloat);
-        //}
-
+        public void AddGrade(double grade)
+        {
+            float gradeAsFloat = (float)grade;
+            this.AddGrade(gradeAsFloat);
+        }
         public void AddGrade(int grade)
         {
             float gradeAsFloat = grade;
             this.AddGrade(gradeAsFloat);
         }
-
         public void AddGrade(char grade)
         {
             switch (grade)
