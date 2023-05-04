@@ -1,4 +1,6 @@
-﻿namespace ChalengeApp
+﻿using static ChalengeApp.EmployeeBase;
+
+namespace ChalengeApp
 {
     //  CO ....
     public interface IEmployee
@@ -10,6 +12,8 @@
         void AddGrade(double grade);
         void AddGrade(int grade);
         void AddGrade(char grade);
+
+        event GradeAddDelegate GradeAdded;
         Statistics GetStatistics();
     }
 }

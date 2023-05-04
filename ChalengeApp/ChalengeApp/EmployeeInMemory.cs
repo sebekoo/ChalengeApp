@@ -3,30 +3,35 @@
     public class EmployeeInMemory : EmployeeBase
     {
         private List<float> grades = new List<float>();
-        public EmployeeInMemory(string name, string surmane) 
+
+        public override event GradeAddDelegate GradeAdded;
+
+        #region Konstruktor
+        public EmployeeInMemory(string name, string surmane)
             : base(name, surmane)
         {
         }
+        #endregion
 
-        //public override void SayHello()
-        //{
-        //    Console.WriteLine("Witam z klasy EmployeeInMemory");
-        //    base.SayHello();
-        //}
-
+        #region Metody AddGrade
         public override void AddGrade(float grade)
         {
             if (grade >= 0 && grade <= 100)
             {
                 this.grades.Add(grade);
+
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
             }
-            else if (grade < 0)
-            {
-                throw new Exception("Podana wartość nie moze być mniejsza od \"0\". Podaj wartość od 0 - 100");
-            }
+            //else if (grade < 0)
+            //{
+            //    throw new Exception("Podana wartość nie moze być mniejsza od \"0\". Podaj wartość od 0 - 100");
+            //}
             else
             {
-                throw new Exception("Podana wartość przekracza zakres ocen. Podaj wartość od 0 - 100 lub literowo A-E");
+                throw new Exception("Wrong Value");
             }
         }
 
@@ -36,32 +41,32 @@
             {
                 this.AddGrade(inputFloat);
             }
-            else if (char.TryParse(grade, out char inputChar))
+            else if (char.TryParse(grade, out char gradeInChar))
             {
-                switch (inputChar)
+                switch (gradeInChar)
                 {
                     case 'A':
                     case 'a':
-                        this.grades.Add(100);
+                        this.AddGrade(100);
                         break;
                     case 'B':
                     case 'b':
-                        this.grades.Add(80);
+                        this.AddGrade(80);
                         break;
                     case 'C':
                     case 'c':
-                        this.grades.Add(60);
+                        this.AddGrade(60);
                         break;
                     case 'D':
                     case 'd':
-                        this.grades.Add(40);
+                        this.AddGrade(40);
                         break;
                     case 'E':
                     case 'e':
-                        this.grades.Add(20);
+                        this.AddGrade(20);
                         break;
                     default:
-                        throw new Exception($"Dodana ocena - \"{grade}\" jest spoza zakresu \n\nPrzypominam - zakres wprowadzanych ocen to: A - E lub 0 - 100, \n\nWybranie litery \"q\" zakończy wprowadzanie ocen\n");
+                        throw new Exception("Wrong Letter");
                 }
             }
             else
@@ -78,7 +83,7 @@
 
         public override void AddGrade(int grade)
         {
-            float gradeAsFloat = grade;
+            float gradeAsFloat = (float)grade;
             this.AddGrade(gradeAsFloat);
         }
 
@@ -88,29 +93,32 @@
             {
                 case 'A':
                 case 'a':
-                    this.grades.Add(100);
+                    this.AddGrade(100);
                     break;
                 case 'B':
                 case 'b':
-                    this.grades.Add(80);
+                    this.AddGrade(80);
                     break;
                 case 'C':
                 case 'c':
-                    this.grades.Add(60);
+                    this.AddGrade(60);
                     break;
                 case 'D':
                 case 'd':
-                    this.grades.Add(40);
+                    this.AddGrade(40);
                     break;
                 case 'E':
                 case 'e':
-                    this.grades.Add(20);
+                    this.AddGrade(20);
                     break;
                 default:
-                    throw new Exception($"Dodana ocena - \"{grade}\" jest spoza zakresu \n\nPrzypominam - zakres wprowadzanych ocen to: A - E, wybranie litery \"q\" zakończy wprowadzanie ocen\n");
+                    throw new Exception("Wrong Letter");
             }
         }
 
+        #endregion
+
+        #region Metody Statistics
         public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
@@ -140,5 +148,7 @@
             };
             return statistics;
         }
+        #endregion
+
     }
 }

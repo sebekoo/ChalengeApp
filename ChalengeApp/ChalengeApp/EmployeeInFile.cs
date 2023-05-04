@@ -1,56 +1,126 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ChalengeApp
+﻿namespace ChalengeApp
 {
     public class EmployeeInFile : EmployeeBase
     {
         private const string fileName = "grade.txt";
-        
+
+        public override event GradeAddDelegate GradeAdded;
+
+        #region Konstruktor
         public EmployeeInFile(string name, string surmane)
             : base(name, surmane)
         {
         }
+        #endregion
 
+        #region Metody AddGrade
         public override void AddGrade(float grade)
         {
-            using (var writer = File.AppendText(fileName))
+            if (grade >= 0 && grade <= 100)
             {
-                writer.WriteLine(grade);
+                using (var writer = File.AppendText(fileName))
+                {
+                    writer.WriteLine(grade);
+                }
+
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
+            }
+            //else if (grade < 0)
+            //{
+            //    throw new Exception("Podana wartość nie moze być mniejsza od \"0\". Podaj wartość od 0 - 100");
+            //}
+            else
+            {
+                throw new Exception("Wrong Value");
             }
         }
 
         public override void AddGrade(string grade)
         {
-            using (var writer = File.AppendText(fileName))
+            if (float.TryParse(grade, out float result))
             {
-                writer.WriteLine(grade);
+                this.AddGrade(result);
+            }
+            else if (char.TryParse(grade, out char gradeAsChar))
+            {
+                switch (gradeAsChar)
+                {
+                    case 'A':
+                    case 'a':
+                        this.AddGrade(100);
+                        break;
+                    case 'B':
+                    case 'b':
+                        this.AddGrade(80);
+                        break;
+                    case 'C':
+                    case 'c':
+                        this.AddGrade(60);
+                        break;
+                    case 'D':
+                    case 'd':
+                        this.AddGrade(40);
+                        break;
+                    case 'E':
+                    case 'e':
+                        this.AddGrade(20);
+                        break;
+                    default:
+                        throw new Exception("Wrong Letter");
+                }
+            }
+            else
+            {
+                throw new Exception("String is not float");
             }
         }
 
         public override void AddGrade(double grade)
         {
-            using (var writer = File.AppendText(fileName))
-            {
-                writer.WriteLine(grade);
-            }
+            float gradeAsFloat = (float)grade;
+            this.AddGrade(gradeAsFloat);
         }
 
         public override void AddGrade(int grade)
         {
-            using (var writer = File.AppendText(fileName))
-            {
-                writer.WriteLine(grade);
-            }
+            float gradeAsFloat = grade;
+            this.AddGrade(gradeAsFloat);
         }
 
         public override void AddGrade(char grade)
         {
-            using (var writer = File.AppendText(fileName))
+            switch (grade)
             {
-                writer.WriteLine(grade);
+                case 'A':
+                case 'a':
+                    this.AddGrade(100);
+                    break;
+                case 'B':
+                case 'b':
+                    this.AddGrade(80);
+                    break;
+                case 'C':
+                case 'c':
+                    this.AddGrade(60);
+                    break;
+                case 'D':
+                case 'd':
+                    this.AddGrade(40);
+                    break;
+                case 'E':
+                case 'e':
+                    this.AddGrade(20);
+                    break;
+                default:
+                    throw new Exception("Wrong Letter");
             }
         }
+        #endregion
 
+        #region Metody Statistics
         public override Statistics GetStatistics()
         {
             var gradesFromFile = this.ReadGradesFromFile();
@@ -59,23 +129,22 @@ namespace ChalengeApp
         }
         private List<float> ReadGradesFromFile()
         {
-            var gradesReadFromFile = new List<float>();
-            if (File.Exists(fileName))
+            var grades = new List<float>();
+            if (File.Exists($"{fileName}"))
             {
                 using (var reader = File.OpenText($"{fileName}"))
                 {
-                    string line = reader.ReadLine();
+                    var line = reader.ReadLine();
                     while (line != null)
                     {
                         var number = float.Parse(line);
-                        Console.WriteLine(line);
-                        gradesReadFromFile.Add(number);
+                        grades.Add(number);
                         line = reader.ReadLine();
                     }
                 }
             }
 
-            return gradesReadFromFile;
+            return grades;
         }
 
         private Statistics CountStatistics(List<float> grades)
@@ -108,5 +177,7 @@ namespace ChalengeApp
             };
             return statistics;
         }
+        #endregion
+
     }
 }
