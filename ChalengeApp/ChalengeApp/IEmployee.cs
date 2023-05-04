@@ -2,7 +2,6 @@
 
 namespace ChalengeApp
 {
-    //  CO ....
     public interface IEmployee
     {
         string Name { get; }

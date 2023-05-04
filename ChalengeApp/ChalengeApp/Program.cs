@@ -1,4 +1,5 @@
 ﻿using ChalengeApp;
+
 #region Menu programu
 Console.WriteLine("Witam w Programie do oceny Pracowników");
 Console.WriteLine("======================================");
@@ -90,18 +91,3 @@ Console.WriteLine($"Max:            {statistics2.Max}");
 Console.WriteLine($"Litera oceny:   {statistics2.AverageLetter}");
 
 #endregion
-
-
-//try
-//{
-//    Employee emp = null;
-//    var name = emp.Surname;
-//}
-//catch(Exception ex)
-//{
-//    Console.WriteLine(ex.Message);
-//}
-//finally
-//{
-//    Console.WriteLine("Wystąpił błąd. Administrator został powiadomiony. Kontynuujemy");
-//}

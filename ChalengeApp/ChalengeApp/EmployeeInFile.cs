@@ -28,10 +28,6 @@
                     GradeAdded(this, new EventArgs());
                 }
             }
-            //else if (grade < 0)
-            //{
-            //    throw new Exception("Podana wartość nie moze być mniejsza od \"0\". Podaj wartość od 0 - 100");
-            //}
             else
             {
                 throw new Exception("Wrong Value");
@@ -178,6 +174,5 @@
             return statistics;
         }
         #endregion
-
     }
 }
