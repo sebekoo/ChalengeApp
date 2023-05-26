@@ -18,7 +18,7 @@
         {
             if (grade >= 0 && grade <= 100)
             {
-                this.grades.Add(grade);
+                grades.Add(grade);
 
                 if (GradeAdded != null)
                 {
@@ -40,62 +40,62 @@
             switch (grade)
             {
                 case "6":
-                    this.AddGrade(100);
+                    AddGrade(100);
                     break;
                 case "-6":
                 case "6-":
-                    this.AddGrade(95);
+                    AddGrade(95);
                     break;
                 case "+5":
                 case "5+":
-                    this.AddGrade(85);
+                    AddGrade(85);
                     break;
                 case "5":
-                    this.AddGrade(80);
+                    AddGrade(80);
                     break;
                 case "-5":
                 case "5-":
-                    this.AddGrade(75);
+                    AddGrade(75);
                     break;
                 case "+4":
                 case "4+":
-                    this.AddGrade(65);
+                    AddGrade(65);
                     break;
                 case "4":
-                    this.AddGrade(60);
+                    AddGrade(60);
                     break;
                 case "-4":
                 case "4-":
-                    this.AddGrade(55);
+                    AddGrade(55);
                     break;
                 case "+3":
                 case "3+":
-                    this.AddGrade(45);
+                    AddGrade(45);
                     break;
                 case "3":
-                    this.AddGrade(40);
+                    AddGrade(40);
                     break;
                 case "-3":
                 case "3-":
-                    this.AddGrade(35);
+                    AddGrade(35);
                     break;
                 case "+2":
                 case "2+":
-                    this.AddGrade(25);
+                    AddGrade(25);
                     break;
                 case "2":
-                    this.AddGrade(20);
+                    AddGrade(20);
                     break;
                 case "-2":
                 case "2-":
-                    this.AddGrade(15);
+                    AddGrade(15);
                     break;
                 case "+1":
                 case "1+":
-                    this.AddGrade(5);
+                    AddGrade(5);
                     break;
                 case "1":
-                    this.AddGrade(0);
+                    AddGrade(0);
                     break;
                 default:
                     throw new Exception("Wrong value");
@@ -110,7 +110,7 @@
         public override void AddGrade(int grade)
         {
             float gradeAsFloat = grade;
-            this.AddGrade(gradeAsFloat);
+            AddGrade(gradeAsFloat);
         }
 
         public override void AddGrade(char grade)
@@ -123,31 +123,10 @@
         public override Statistics GetStatistics()
         {
             var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
-
             foreach (var grade in this.grades)
             {
-                if (grade >= 0)
-                {
-                    statistics.Max = Math.Max(statistics.Max, grade);
-                    statistics.Min = Math.Min(statistics.Min, grade);
-                    statistics.Average += grade;
-                }
+                statistics.AddGrade(grade);
             }
-
-            statistics.Average /= this.grades.Count;
-
-            statistics.AverageLetter = statistics.Average
-                switch
-            {
-                var average when average >= 80 => 'A',
-                var average when average >= 60 => 'B',
-                var average when average >= 40 => 'C',
-                var average when average >= 20 => 'D',
-                _ => 'E',
-            };
             return statistics;
         }
         #endregion

@@ -6,18 +6,18 @@ namespace ChalengeApp.Tests
         public void WhenUserCollectTwoScore_ShouldCorrectResult()
         {
             // arrange - przygotowanie
-            var user = new User("Adam","fgfjgfj");
-            user.AddScore(4);
-            user.AddScore(4);
-            user.AddScore(-1); //punkty karne
-            user.AddScore(3);
-            user.AddScore(-10); // punkty ujemne
+            var employee = new EmployeeInMemory("Adam", "Nowak");
+            employee.AddGrade(4);
+            employee.AddGrade(4);
+            //employee.AddGrade(-1); //punkty karne
+            employee.AddGrade(3);
+            //employee.AddGrade(-10); // punkty ujemne
 
             // act - uruchamiamy
-            var result = user.Result;
+            var result = employee.GetStatistics();
 
             // assert - sprawdzamy czy zosta³y spe³nione warunki
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(11, result.Sum);
         }
     }
 }

@@ -38,77 +38,49 @@
         {
             if (float.TryParse(grade, out float result))
             {
-                this.AddGrade(result);
+                AddGrade(result);
             }
-            else if (char.TryParse(grade, out char gradeAsChar))
+            else if (grade.Length > 1)
             {
-                switch (gradeAsChar)
-                {
-                    case 'A':
-                    case 'a':
-                        this.AddGrade(100);
-                        break;
-                    case 'B':
-                    case 'b':
-                        this.AddGrade(80);
-                        break;
-                    case 'C':
-                    case 'c':
-                        this.AddGrade(60);
-                        break;
-                    case 'D':
-                    case 'd':
-                        this.AddGrade(40);
-                        break;
-                    case 'E':
-                    case 'e':
-                        this.AddGrade(20);
-                        break;
-                    default:
-                        throw new Exception("Wrong Letter");
-                }
+                throw new Exception("String is not float");
             }
             else
             {
-                throw new Exception("String is not float");
+                AddGrade(grade[0]);
             }
         }
 
         public override void AddGrade(double grade)
         {
             float gradeAsFloat = (float)grade;
-            this.AddGrade(gradeAsFloat);
+            AddGrade(gradeAsFloat);
         }
 
         public override void AddGrade(int grade)
         {
             float gradeAsFloat = grade;
-            this.AddGrade(gradeAsFloat);
+            AddGrade(gradeAsFloat);
         }
 
         public override void AddGrade(char grade)
         {
+            grade = char.ToUpper(grade);
             switch (grade)
             {
                 case 'A':
-                case 'a':
-                    this.AddGrade(100);
+                    AddGrade(100);
                     break;
                 case 'B':
-                case 'b':
-                    this.AddGrade(80);
+                    AddGrade(80);
                     break;
                 case 'C':
-                case 'c':
-                    this.AddGrade(60);
+                    AddGrade(60);
                     break;
                 case 'D':
-                case 'd':
-                    this.AddGrade(40);
+                    AddGrade(40);
                     break;
                 case 'E':
-                case 'e':
-                    this.AddGrade(20);
+                    AddGrade(20);
                     break;
                 default:
                     throw new Exception("Wrong Letter");
@@ -119,8 +91,8 @@
         #region Metody Statistics
         public override Statistics GetStatistics()
         {
-            var gradesFromFile = this.ReadGradesFromFile();
-            var result = this.CountStatistics(gradesFromFile);
+            var gradesFromFile = ReadGradesFromFile();
+            var result = CountStatistics(gradesFromFile);
             return result;
         }
         private List<float> ReadGradesFromFile()
@@ -146,31 +118,11 @@
         private Statistics CountStatistics(List<float> grades)
         {
             var statistics = new Statistics();
-            statistics.Average = 0;
-            statistics.Max = float.MinValue;
-            statistics.Min = float.MaxValue;
-
             foreach (var grade in grades)
             {
-                if (grade >= 0)
-                {
-                    statistics.Max = Math.Max(statistics.Max, grade);
-                    statistics.Min = Math.Min(statistics.Min, grade);
-                    statistics.Average += grade;
-                }
+                statistics.AddGrade(grade);
             }
 
-            statistics.Average /= grades.Count;
-
-            statistics.AverageLetter = statistics.Average
-                switch
-            {
-                var average when average >= 80 => 'A',
-                var average when average >= 60 => 'B',
-                var average when average >= 40 => 'C',
-                var average when average >= 20 => 'D',
-                _ => 'E',
-            };
             return statistics;
         }
         #endregion

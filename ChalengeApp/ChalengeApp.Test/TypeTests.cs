@@ -35,24 +35,24 @@
         public void TestReferencyjny()
         {
             // arrange - przygotowanie
-            var user1 = GetUser("Adam");
-            var user2 = GetUser("Adam");
+            var user1 = GetUser("Adam", "Nowak");
+            var user2 = GetUser("Adam", "Nowak");
 
 
             // act - uruchamiamy
 
             // assert - sprawdzamy czy zostały spełnione warunki
             //Assert.AreEqual(user1, user2); //false
-            Assert.AreEqual(user1.Login, user2.Login);
+            Assert.AreEqual(user1.Surname, user2.Surname);
 
-            Assert.AreNotEqual(user1, user2);
+            //Assert.AreNotEqual(user1, user2);
             //Assert.AreNotEqual(user1.Login, user2.Login); // false
         }
 
         // metoda
-        private User GetUser(string name) //przy wywołaniu metody 'GetUser' otrzymamy imie 'Adam'
+        private EmployeeInMemory GetUser(string name, string surname) //przy wywołaniu metody 'GetUser' otrzymamy imie 'Adam'
         {
-            return new User("Adam", "hjkhghjgh");
+            return new EmployeeInMemory(name, surname);
         }
     }
 }
